@@ -1,0 +1,42 @@
+
+<div style="text-align:center">
+  <h1> Tasks List </h1>
+  <div>
+    <button (click) = "getTasksFromService()" class="btn btn-info">Get All Tasks</button>
+    <p *ngFor = "let t of tasks">{{ t.title }}
+      <a href="#" class="btn btn-warning btn-sm" (click) = "readOneFromService(t._id)" > Show</a>
+      <button (click)="delete(t._id)" class="btn btn-danger btn-sm">Delete</button>
+      <button (click)="showEditForm(t._id)" class="btn btn-success btn-sm">Edit</button>
+    </p>
+
+    <app-task *ngIf = "id_task" [readOneFromService]="id_task"></app-task>
+
+    <!-- <div *ngIf = "id_task">
+      <p>{{id_task.title}}</p>
+      <p>{{id_task.description}}</p>
+    </div> --> 
+    <!-- move these code to the task component -->
+
+
+    <form (submit)="onSubmit()">
+      <h1>New Task</h1>
+ <!-- use the json pipe to see how newTask changes in real time -->
+      <p>{{ newTask | json }}</p>
+     Title <input type="text" name="newTask.title" [(ngModel)]="newTask.title">
+     Description  <input type="text" name="newTask.description" [(ngModel)]="newTask.description">
+      <input type="submit" value="Create Task" />
+    </form>
+  </div>
+
+
+  <div *ngIf = "edit_task">
+    <form (submit)="onUpdate(edit_task._id)">
+      <h1>Edit a Task</h1>
+      Title <input type="text" name="edit_task.title" [(ngModel)]="edit_task.title" >
+      Description  <input type="text" name="edit_task.description" [(ngModel)]="edit_task.description" >
+      <input type="submit" value="Edit Task" />
+    </form>
+  </div>
+    
+    
+    
